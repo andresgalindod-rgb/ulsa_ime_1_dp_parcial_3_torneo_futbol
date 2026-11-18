@@ -1,12 +1,10 @@
 
 #pragma once
-
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <cctype>
 #include <cstddef>
-
 #include "torneo.h"
 #include "utilerias.h"
 
