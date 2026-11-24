@@ -49,5 +49,16 @@ struct Equipo
     int golesContra = 0;
     int puntos = 0;
 };
+
+// Un partido entre dos equipos.
+// local y visitante guardan la posicion de cada equipo en el
+// arreglo de equipos (orden de registro: 0 a MAX_EQUIPOS - 1).
+struct Partido
+{
+    int local = 0;
+    int visitante = 0;
+    int golesLocal = 0;
+    int golesVisitante = 0;
+};
 // ---------- Funciones comunes (equipo) ----------
 // Escriban aqui las funciones que varios modulos comparten.
