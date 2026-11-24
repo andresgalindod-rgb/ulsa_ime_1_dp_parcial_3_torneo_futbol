@@ -67,12 +67,54 @@ Explica cada decisión y por qué la tomaste.
 Tu receta en pseudocódigo, escrita antes de programar.
 
 ```
-[Inserta aquí tu respuesta]
+calcularTabla(equipos, totalEquipos, partidos, totalPartidos)
+    1. Para i desde 0 hasta totalEquipos - 1:
+           reiniciarEstadisticas(equipos[i])
+    2. Para i desde 0 hasta totalPartidos - 1:
+           partido <- partidos[i]
+           aplicarPartido(partido, equipos[partido.local], equipos[partido.visitante])
+
+reiniciarEstadisticas(equipo)
+    1. jugados, ganados, empatados, perdidos <- 0
+    2. golesFavor, golesContra, puntos <- 0
+
+aplicarPartido(partido, local, visitante)
+    1. registrarResultado(local, partido.golesLocal, partido.golesVisitante)
+    2. registrarResultado(visitante, partido.golesVisitante, partido.golesLocal)
+
+registrarResultado(equipo, golesFavor, golesContra)
+    1. equipo.jugados <- equipo.jugados + 1
+    2. equipo.golesFavor <- equipo.golesFavor + golesFavor
+    3. equipo.golesContra <- equipo.golesContra + golesContra
+    4. Si golesFavor > golesContra:
+           equipo.ganados <- equipo.ganados + 1
+           equipo.puntos <- equipo.puntos + PUNTOS_VICTORIA
+       Si no, si golesFavor = golesContra:
+           equipo.empatados <- equipo.empatados + 1
+           equipo.puntos <- equipo.puntos + PUNTOS_EMPATE
+       Si no:
+           equipo.perdidos <- equipo.perdidos + 1
+           equipo.puntos <- equipo.puntos + PUNTOS_DERROTA
 ```
 
 **¿Probaste tu receta a mano con los datos del escenario? ¿Qué corregiste?**
 
-[Inserta aquí tu respuesta]
+Sí. Con los marcadores del modo de prueba seguí la receta para Leones (equipo 4):
+
+| Rival | Marcador (Leones primero) | Resultado |
+| --- | --- | --- |
+| Aguilas | 0 - 4 | Perdido |
+| Halcones | 5 - 0 | Ganado |
+| Jaguares | 1 - 0 | Ganado |
+| Pumas | 5 - 3 | Ganado |
+| Tigres | 3 - 3 | Empatado |
+
+PJ = 5, PG = 3, PE = 1, PP = 1, GF = 0 + 5 + 1 + 5 + 3 = 14, GC = 4 + 0 + 0 + 3 + 3 = 10, PTS = 3 x 3 + 1 x 1 = 10. Coincide con la tabla de ejemplo de `PROYECTO.md`.
+
+Al probarla corregí dos cosas:
+
+1. Cuando Leones es visitante (contra Aguilas y Halcones), sus goles están en la columna del visitante. Por eso `aplicarPartido` llama a `registrarResultado` con los goles invertidos para el visitante.
+2. Si la tabla se calculara dos veces, las estadísticas se sumarían dos veces. Por eso agregué el paso 1 de `calcularTabla`, que pone todo en cero antes de recorrer los partidos.
 
 ## 6. Pruebas
 
