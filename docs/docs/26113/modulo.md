@@ -140,24 +140,29 @@ Incluye casos normales y casos límite.
 
 | # | Qué probaste | Entrada | Resultado esperado | Resultado obtenido |
 | --- | --- | --- | --- | --- |
-| 1 | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] |
-| 2 | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] |
-| 3 | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] |
+| 1 | Escenario de prueba, equipo con empate en el primer lugar | Marcadores de `escenario_prueba.h`, equipo 1 (Aguilas) | PJ 5, PG 3, PE 1, PP 1, GF 13, GC 8, PTS 10 | PJ 5, PG 3, PE 1, PP 1, GF 13, GC 8, PTS 10 |
+| 2 | Escenario de prueba, equipo que juega de visitante | Marcadores de `escenario_prueba.h`, equipo 4 (Leones) | PJ 5, PG 3, PE 1, PP 1, GF 14, GC 10, PTS 10 | PJ 5, PG 3, PE 1, PP 1, GF 14, GC 10, PTS 10 |
+| 3 | Escenario de prueba, último lugar | Marcadores de `escenario_prueba.h`, equipo 5 (Pumas) | PJ 5, PG 1, PE 0, PP 4, GF 7, GC 15, PTS 3 | PJ 5, PG 1, PE 0, PP 4, GF 7, GC 15, PTS 3 |
+| 4 | Calcular la tabla dos veces seguidas (no debe duplicar) | Escenario de prueba, `calcularTabla` dos veces | Aguilas sigue con PJ 5 y PTS 10 | Aguilas con PJ 5 y PTS 10 |
+| 5 | Caso límite: todos los partidos empatados | Los 15 partidos 0 - 0 | Cada equipo: PJ 5, PE 5, GF 0, GC 0, PTS 5 | Cada equipo: PJ 5, PE 5, GF 0, GC 0, PTS 5 |
+| 6 | Caso límite: un equipo gana todo y otro pierde todo | Los 15 partidos 5 - 0 a favor del local | Equipo 1: PG 5, GF 25, PTS 15. Equipo 6: PP 5, GC 25, PTS 0 | Equipo 1: PG 5, GF 25, PTS 15. Equipo 6: PP 5, GC 25, PTS 0 |
+| 7 | Comprobación general: los goles cuadran | Caso de la prueba 6 | Suma de GF de todos = suma de GC de todos | 75 = 75 |
 
 ## 7. Bitácora de dudas y errores
 
 | # | Duda o error | Cómo lo resolví |
 | --- | --- | --- |
-| 1 | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] |
-| 2 | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] |
-| 3 | [Inserta aquí tu respuesta] | [Inserta aquí tu respuesta] |
+| 1 | El registro `Equipo` del equipo solo tenía el nombre, y mi módulo no tenía dónde guardar las estadísticas. | Agregué en `torneo.h` los campos `jugados`, `ganados`, `empatados`, `perdidos`, `golesFavor`, `golesContra` y `puntos`, iniciados en 0. |
+| 2 | No existía el registro `Partido`, y mi módulo necesita leer los marcadores. | Lo creé en `torneo.h` con la posición del local, la del visitante y los goles de cada uno. Guardé la posición y no el nombre para llegar directo al equipo en el arreglo. |
+| 3 | Duda: ¿por qué hace falta el `&` si la función ya recibe el equipo? | Sin `&`, C++ manda una copia: la función suma los puntos a la copia y el equipo original se queda en ceros. Con `&` se trabaja sobre el original. |
+| 4 | Al calcular la tabla dos veces, las estadísticas se duplicaban. | `calcularTabla` primero reinicia a todos los equipos con `reiniciarEstadisticas`. |
 
 ## 8. Reflexión
 
 **¿Qué aprendiste?**
 
-[Inserta aquí tu respuesta]
+Aprendí a usar el paso por referencia para que una función modifique un registro sin regresar nada, y a usar `const` con referencia cuando solo necesito leer. También aprendí que dividir el problema en funciones pequeñas, cada una con una sola tarea, hace que el código sea más fácil de probar y de reutilizar: `registrarResultado` sirve igual para el local y para el visitante.
 
 **¿Qué cambiarías de tu proceso?**
 
-[Inserta aquí tu respuesta]
+Pondría de acuerdo antes al equipo sobre los registros `Equipo` y `Partido`, porque todos los módulos dependen de ellos. También haría mis commits más seguido, en lugar de dejar el trabajo para los últimos días.
