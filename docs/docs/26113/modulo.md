@@ -1,21 +1,34 @@
+# Documentación del módulo
+
 ## 1. Autor
 
 **Nombre:** Andrés Galindo Dávila  
-**Matrícula:** 26113 
-**Módulo:** [Inserta aquí tu respuesta]  
-**Archivo de código:** [Inserta aquí tu respuesta]
+**Matrícula:** 26113  
+**Módulo:** 3. Tabla de posiciones  
+**Archivo de código:** `include/tabla.h`
 
 ## 2. Propósito
 
 ¿Qué hace tu módulo y para qué le sirve a quien usa el programa?
 
-[Inserta aquí tu respuesta]
+Mi módulo calcula las estadísticas de cada equipo del torneo a partir de los resultados de los 15 partidos: partidos jugados (PJ), ganados (PG), empatados (PE), perdidos (PP), goles a favor (GF), goles en contra (GC) y puntos (PTS). No imprime nada; solo deja esos datos guardados dentro de cada `Equipo`.
+
+Al usuario le sirve porque, sin este cálculo, no habría tabla de posiciones, ni campeón, ni ficha de equipo: el módulo 4 ordena y muestra la tabla con estos datos, y el módulo 5 los usa en la ficha. El programa lo ejecuta una sola vez, justo después de simular el torneo.
 
 ## 3. Entradas y salidas
 
 ¿Qué recibe tu módulo (parámetros y datos del teclado) y qué produce (lo que imprime o devuelve)?
 
-[Inserta aquí tu respuesta]
+**Recibe (por parámetros):**
+
+- El arreglo de equipos (`Equipo equipos[]`), que se modifica.
+- Cuántos equipos hay (`int totalEquipos`).
+- El arreglo de partidos ya simulados (`const Partido partidos[]`), que solo se lee.
+- Cuántos partidos hay (`int totalPartidos`).
+
+**Del teclado:** nada. El módulo no interactúa con el usuario.
+
+**Produce:** no imprime ni devuelve valores (todas sus funciones son `void`). Su resultado son los campos de estadísticas (`jugados`, `ganados`, `empatados`, `perdidos`, `golesFavor`, `golesContra` y `puntos`) actualizados dentro de cada equipo del arreglo original, gracias al paso por referencia.
 
 ## 4. Decisiones de diseño
 
