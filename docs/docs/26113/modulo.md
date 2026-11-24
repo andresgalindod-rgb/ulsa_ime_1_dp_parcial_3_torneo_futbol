@@ -36,31 +36,49 @@ Explica cada decisión y por qué la tomaste.
 
 **¿Qué funciones tiene tu módulo y qué tarea hace cada una?**
 
-[Inserta aquí tu respuesta]
+| Función | Tarea (una sola) |
+| --- | --- |
+| `reiniciarEstadisticas(Equipo& equipo)` | Pone en cero las estadísticas de un equipo, sin tocar su nombre. |
+| `registrarResultado(Equipo& equipo, int golesFavor, int golesContra)` | Suma a un equipo un partido jugado: sus goles y el resultado (ganado, empatado o perdido) con sus puntos. Es la operación "registrar resultado" del TDA `Equipo`. |
+| `aplicarPartido(const Partido& partido, Equipo& local, Equipo& visitante)` | Aplica un partido a los dos equipos que lo jugaron, cada uno con el marcador visto desde su lado. |
+| `calcularTabla(Equipo equipos[], int totalEquipos, const Partido partidos[], int totalPartidos)` | Calcula la tabla completa: reinicia a todos los equipos y recorre los partidos. Es la función que llama `main`. |
+
+Las funciones se apoyan entre sí: `calcularTabla` usa `reiniciarEstadisticas` y `aplicarPartido`, y `aplicarPartido` usa `registrarResultado` dos veces. Así ninguna lógica se escribe dos veces.
 
 **¿Qué estructuras de datos usa tu módulo (registros, arreglos, matrices o apuntadores), por qué las elegiste y cómo pasas los datos a cada función (por valor, por referencia, como arreglo o con un apuntador)?**
 
-[Inserta aquí tu respuesta]
+- **Registro `Equipo` (TDA del bloque 0):** agregué las estadísticas dentro del mismo registro, junto al nombre. Así todos los datos de un equipo viajan juntos y no se necesitan arreglos paralelos, que el proyecto prohíbe.
+- **Registro `Partido` (TDA del bloque 0):** guarda la posición del equipo local y del visitante en el arreglo de equipos, y los goles de cada uno. Elegí guardar la posición (un índice) y no el nombre porque así llego directo al equipo con `equipos[partido.local]`, sin tener que buscarlo por nombre.
+- **Arreglo de `Equipo` y arreglo de `Partido`:** son las estructuras obligatorias del bloque 0. Mi módulo recorre el de partidos y modifica el de equipos.
+
+Cómo paso los datos:
+
+- `Equipo&` **por referencia** en `reiniciarEstadisticas`, `registrarResultado` y `aplicarPartido`, porque la función tiene que modificar el equipo original y no una copia.
+- `const Partido&` **por referencia constante** en `aplicarPartido`, porque el partido solo se lee: la referencia evita copiarlo y `const` evita modificarlo por error.
+- Los goles (`int`) **por valor**, porque son datos pequeños que solo se leen.
+- Los arreglos se pasan **como arreglo**: C++ manda la dirección del primer elemento, así que `calcularTabla` modifica los equipos originales. El arreglo de partidos va como `const` porque solo se lee.
 
 **¿Dónde demuestras los temas asignados a tu módulo?**
 
-[Inserta aquí tu respuesta]
+- **Funciones:** el módulo tiene cuatro funciones, cada una con una sola tarea, con parámetros y con comentario de qué recibe y qué devuelve. Se reutilizan entre ellas (por ejemplo, `registrarResultado` se usa para el local y para el visitante).
+- **Paso por referencia:** en `reiniciarEstadisticas(Equipo& equipo)`, `registrarResultado(Equipo& equipo, ...)` y `aplicarPartido(..., Equipo& local, Equipo& visitante)`. Sin el `&`, la función cambiaría una copia y la tabla se quedaría en ceros. También uso referencia constante en `const Partido& partido`.
 
 **¿Qué ciclos usaste y por qué esos?**
 
-[Inserta aquí tu respuesta]
+Dos ciclos `for` en `calcularTabla`: el primero recorre los equipos para reiniciarlos, y el segundo recorre los partidos para aplicarlos. Usé `for` porque sé de antemano cuántas vueltas da cada uno (`totalEquipos` y `totalPartidos`).
 
 **¿Qué constantes usaste y por qué son constantes?**
 
-[Inserta aquí tu respuesta]
+- `PUNTOS_VICTORIA`, `PUNTOS_EMPATE` y `PUNTOS_DERROTA` de `torneo.h`, para sumar los puntos. Son constantes porque la regla del torneo no cambia durante el programa, y si algún día cambia, se modifica en un solo lugar.
+- `MAX_EQUIPOS` y `TOTAL_PARTIDOS` de `torneo.h`: `main` los pasa a `calcularTabla`, en lugar de escribir 6 y 15.
 
 **¿Qué funciones reutilizaste de `utilerias.h`, de `torneo.h` o de otro módulo?**
 
-[Inserta aquí tu respuesta]
+De `torneo.h` reutilizo los registros `Equipo` y `Partido` y las constantes de puntos y de tamaño. No uso funciones de `utilerias.h` porque mi módulo no lee nada del teclado. Mi módulo depende del módulo 2, que llena el arreglo de partidos, y le sirve a los módulos 4 y 5, que usan las estadísticas.
 
 **¿Qué casos de rechazo maneja tu módulo y qué mensaje muestra en cada uno?** Si tu módulo es el 3, escribe "No aplica".
 
-[Inserta aquí tu respuesta]
+No aplica.
 
 ## 5. Receta
 
