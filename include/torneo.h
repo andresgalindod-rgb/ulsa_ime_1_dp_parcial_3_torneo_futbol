@@ -39,6 +39,15 @@ const int PUNTOS_DERROTA = 0;
 struct Equipo
 {
     std::string nombre;
+
+    // Estadisticas del torneo (las calcula el modulo 3).
+    int jugados = 0;
+    int ganados = 0;
+    int empatados = 0;
+    int perdidos = 0;
+    int golesFavor = 0;
+    int golesContra = 0;
+    int puntos = 0;
 };
 // ---------- Funciones comunes (equipo) ----------
 // Escriban aqui las funciones que varios modulos comparten.
